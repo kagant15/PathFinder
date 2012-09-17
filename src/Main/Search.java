@@ -4,23 +4,25 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Date;
+import java.util.Stack;
 
 public abstract class Search {
 	
-	static ArrayList<String> visited = new ArrayList<String>();
+	static LinkedList<String> visited = new LinkedList<String>();
 	String current;
 	static ArrayList<String> lines;
 	private static String delimiter="[ ]+";
 	private static String[] tokens;
-	static long startTime;
-	static long endTime;
+	static double startTime;
+	static double endTime;
+	static Stack<String> lastVisited = new Stack<String>();
 	
 	
 	public static void setStartTime(){
 		startTime = new Date().getTime();
 	}
 	
-	public static long getStartTime(){
+	public static double getStartTime(){
 		return startTime;
 	}
 	
@@ -28,7 +30,7 @@ public abstract class Search {
 		endTime = new Date().getTime();
 	}
 	
-	public static long getEndTime(){
+	public static double getEndTime(){
 		return endTime;
 	}
 
@@ -71,7 +73,6 @@ public abstract class Search {
 				connections.add(connection[1]);
 			}
 		}
-		 
 		return connections;
 	}
 	
@@ -96,6 +97,9 @@ public abstract class Search {
 		for(int i=0; i<visited.size(); i++){
 			System.out.println(visited.get(i));
 		}
+//		while(!visited.isEmpty()){
+//			System.out.println(visited.remove());
+//		}
 	}
 	
 	public static void addToVisited(String country){
@@ -106,8 +110,8 @@ public abstract class Search {
 	 * Returns the time it took for the search to complete
 	 * @return
 	 */
-	public long calcRunTime(){
-		long runTime=endTime-startTime;
+	public double calcRunTime(){
+		double runTime=endTime-startTime;
 		
 		return runTime;
 	}

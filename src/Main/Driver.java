@@ -51,9 +51,10 @@ public class Driver {
 			 System.err.println("Error: " + e.getMessage());}
 		 
 		 DFS depthFirstSearch= new DFS(rows); 				//Instantiates a DFS object with the intersections taken from the document
-		 depthFirstSearch.search();							//Searches the intersections using depthFrist technique 
-		 System.out.println(depthFirstSearch.calcRunTime());	//Prints the time it took for the search expressed in milliseconds
+		 depthFirstSearch.search2(Search.getStart());							//Searches the intersections using depthFrist technique 
+		 Search.addToVisited(Search.getStart());
 		 depthFirstSearch.printVistedList();				//Prints the list of names of the visited countries
+		 System.out.println("Run time in miliseconds: "+depthFirstSearch.calcRunTime());//Prints the time it took for the search expressed in milliseconds
 		 
 //		 BFS breadthFirstSearch = new BFS(rows);
 //		 breadthFirstSearch.search();
