@@ -1,46 +1,47 @@
 package Main;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Queue;
+
+
 /**
- * !!! - NOT COMPLETE - !!!
- * @author Tommy
- *
+ * This class is responsible for implementing the breadth first search technique using a queue
+ * 
+ * @author Thomas M Kagan
+ * 
  */
 public class BFS extends Search{
 
-	static Queue<String> fifo=new LinkedList<String>();
+	static boolean foundDestination = false; // Indicates if the final destination has been found on a branch
 	
-	BFS(ArrayList<String> fileLines){
-		lines=fileLines;
+	/**
+	 * Sets the list of intersections to be used in the search
+	 * @param fileLines
+	 */
+	public BFS(ArrayList<String> fileLines) {
+		super(fileLines);	
 	}
 	
-	public void search(){
-		setStartTime();
+	/**
+	 * Uses recursion to solve the search problem.
+	 * @param country
+	 */
+	public void search(String country){
+		String current = country; // The current Country in the tree structure
+		Queue<String> destinations = getDestinations(current, null); // The list of all destination locations from the given country
 		
-		String start=getStart();
-		String end=getEnd();
-		fifo.add(start);
-		
-		while(!fifo.isEmpty()){
-			current=fifo.remove();
-			if(current.equals(end)){
-				addToVisited(current);
-				break;
-			}
-			else{
-				Queue<String> neighbors=getConnections(current);
-				while(!neighbors.isEmpty()){
-					if(!haveVisited(neighbors.peek())){
-					fifo.add(neighbors.remove());
-					}
-				}
-				addToVisited(current);
-			
-			}
+		if(current.equals(getEnd())){
+			foundDestination=true;
 		}
-		setEndTime();
-	}
+		else{
+			while(!destinations.isEmpty() && !foundDestination){
+				current=destinations.remove();
+				search(current);
+			}
+		if(foundDestination){
+			addToVisited(current);
+			}
+		}	
+	}//end of search()
 	
-}
+}//end of BFS class
